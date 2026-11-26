@@ -1,0 +1,38 @@
+name: Link Pages preview in pull request
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+
+concurrency:
+  group: pages-preview-link-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  link-preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add preview link to the PR description
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          endpoint="repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER"
+          marker='<!-- deliciae-pages-preview -->'
+          url="https://schultheissnoah1.github.io/Deliciae/previews/pr-$PR_NUMBER/"
+          current=$(gh api "$endpoint")
+          if jq -e --arg marker "$marker" '(.body // "") | contains($marker)' <<< "$current" > /dev/null; then
+            exit 0
+          fi
+
+          jq --arg marker "$marker" --arg url "$url" '
+            (.body // "") as $body |
+            {body: ($body + (if ($body | length) > 0 then "\n\n" else "" end)
+              + $marker + "\n[Open the GitHub Pages preview](" + $url
+              + ") (available after the Pages deployment finishes).")}
+          ' <<< "$current" | gh api --method PATCH "$endpoint" --input - --silent
