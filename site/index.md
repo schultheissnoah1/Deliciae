@@ -1,14 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Deliciae provides Swiss private jet and helicopter detailing, inside and out.">
-  <title>Deliciae Jet Detailing</title>
-  <link rel="stylesheet" href="assets/deliciae.css">
-  <script src="assets/comparisons.js" defer></script>
-</head>
-<body>
+---
+layout: home
+title: Deliciae Jet Detailing
+description: Deliciae provides Swiss private jet and helicopter detailing, inside and out.
+---
+
   <main>
     <section class="hero" id="top" aria-labelledby="hero-title">
       <header class="hero-header">
@@ -198,5 +193,3 @@
       <div class="footer-bottom"><span>© 2026 Deliciae Jet Detailing</span><span>Terms &amp; Conditions</span><span>Privacy Policy</span></div>
     </div>
   </footer>
-</body>
-</html>
