@@ -9,14 +9,15 @@ class Page(HTMLParser):
         super().__init__()
         self.ids = set()
         self.links = []
-        self.has_script = False
+        self.scripts = []
         self.feed(path.read_text(encoding="utf-8"))
 
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
         if attributes.get("id"):
             self.ids.add(attributes["id"])
-        self.has_script |= tag == "script"
+        if tag == "script":
+            self.scripts.append(attributes.get("src"))
         self.links.extend(attributes[key] for key in ("href", "src") if attributes.get(key))
 
 
@@ -27,7 +28,8 @@ expected = {Path(name) / "index.html" for name in ("", "services", "our-work")}
 errors = [f"Missing page {path}" for path in sorted(expected - pages.keys())]
 
 for path, page in pages.items():
-    if page.has_script:
+    allowed_scripts = ["assets/comparisons.js"] if path == Path("index.html") else []
+    if any(script not in allowed_scripts for script in page.scripts):
         errors.append(f"{path}: unexpected script")
     for reference in page.links:
         target = urlsplit(urljoin(f"{base}/{path.as_posix()}", reference))
