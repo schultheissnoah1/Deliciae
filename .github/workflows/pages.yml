@@ -45,7 +45,7 @@ jobs:
             --jq '.[] | select(.head.repo.full_name == .base.repo.full_name) | [.number, .head.sha] | @tsv' \
             > "$RUNNER_TEMP/pages-preview-heads"
           scripts/build-pages-previews.sh "$RUNNER_TEMP/pages-preview-heads"
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
           path: _site
