@@ -96,8 +96,25 @@ address > * { display: block; }
 .difference-art:not(:hover):not(:focus-within) .comparison-handle { opacity: 0; }
 
 .credentials { color: var(--light-gold); background: var(--deep-wine); text-align: center; }
-.credentials-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; column-gap: clamp(.75rem, 2.5vw, 2.25rem); min-height: 6.5625rem; padding: .6rem 1rem; font: italic 400 clamp(1.5rem, 2.78vw, 2.5rem)/1.1 var(--serif); }
-.credentials-line span + span::before { content: "◆" / ""; margin-right: clamp(.75rem, 2.5vw, 2.25rem); font-size: .3em; vertical-align: middle; }
+.credentials-marquee { position: relative; }
+.marquee-control { position: absolute; z-index: 1; right: .5rem; bottom: .25rem; display: flex; align-items: center; gap: .35rem; padding: .15rem .45rem; border-radius: .25rem; background: var(--deep-wine); font-size: .875rem; cursor: pointer; }
+.marquee-control input { accent-color: var(--gold); }
+.marquee-viewport { container-type: inline-size; overflow: hidden; }
+.credentials-line { display: flex; width: max-content; animation: credentials-scroll 28s linear infinite; font: italic 400 clamp(1.5rem, 2.78vw, 2.5rem)/1.1 var(--serif); }
+.marquee-group { display: flex; flex: none; align-items: center; justify-content: space-around; gap: clamp(.75rem, 2.5vw, 2.25rem); min-width: 100cqw; min-height: 6.5625rem; padding: .6rem clamp(.75rem, 2.5vw, 2.25rem); white-space: nowrap; }
+.marquee-group span::before { content: "◆" / ""; margin-right: clamp(.75rem, 2.5vw, 2.25rem); font-size: .3em; vertical-align: middle; }
+.marquee-control:has(:checked) + .marquee-viewport .credentials-line { animation-play-state: paused; }
+
+@keyframes credentials-scroll {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-control, .marquee-group[aria-hidden] { display: none; }
+  .credentials-line { width: auto; animation: none; }
+  .marquee-group { justify-content: center; flex-wrap: wrap; white-space: normal; }
+}
+
 .credentials-labels { min-height: 4.5rem; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .75rem clamp(1.25rem, 4.8vw, 4.375rem); padding: .9rem 1rem; border-top: 1px solid #d4bf9426; color: var(--sand); font-size: .8125rem; letter-spacing: .2em; text-transform: uppercase; }
 
 .section { padding-block: clamp(5rem, 9vw, 8.125rem); }
@@ -211,8 +228,6 @@ address > * { display: block; }
   .difference-art { min-height: 18rem; }
   .difference-art .jet { transform: none; max-width: 29rem; }
   .difference-copy { padding-inline: var(--gutter); }
-  .credentials-line { padding-block: 1.15rem; row-gap: .5rem; }
-  .credentials-line span + span::before { display: none; }
   .work-grid { grid-template-columns: 1fr; margin-top: 2.75rem; gap: 2.25rem; }
   .work .window { max-width: 15rem; }
   .work-link { margin-top: 2.75rem; }
