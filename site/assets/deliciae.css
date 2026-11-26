@@ -101,7 +101,7 @@ address > * { display: block; }
 .marquee-control input { accent-color: var(--gold); }
 .marquee-viewport { container-type: inline-size; overflow: hidden; }
 .credentials-line { display: flex; width: max-content; animation: credentials-scroll 28s linear infinite; font: italic 400 clamp(1.5rem, 2.78vw, 2.5rem)/1.1 var(--serif); }
-.marquee-group { display: flex; flex: none; align-items: center; justify-content: space-around; gap: clamp(.75rem, 2.5vw, 2.25rem); min-width: 100cqw; min-height: 6.5625rem; padding: .6rem clamp(.75rem, 2.5vw, 2.25rem); white-space: nowrap; }
+.marquee-group { display: flex; flex: none; align-items: center; justify-content: space-around; gap: clamp(.75rem, 2.5vw, 2.25rem); min-width: 100cqw; min-height: 6.5625rem; padding: .6rem clamp(.75rem, 2.5vw, 2.25rem) .6rem 0; white-space: nowrap; }
 .marquee-separator { font-size: .3em; }
 .marquee-control:has(:checked) + .marquee-viewport .credentials-line { animation-play-state: paused; }
 
@@ -112,7 +112,7 @@ address > * { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-control, .marquee-group[aria-hidden], .marquee-separator { display: none; }
   .credentials-line { width: auto; animation: none; }
-  .marquee-group { justify-content: center; flex-wrap: wrap; white-space: normal; }
+  .marquee-group { justify-content: center; flex-wrap: wrap; padding-inline: .75rem; white-space: normal; }
 }
 
 .credentials-labels { min-height: 4.5rem; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .75rem clamp(1.25rem, 4.8vw, 4.375rem); padding: .9rem 1rem; border-top: 1px solid #d4bf9426; color: var(--sand); font-size: .8125rem; letter-spacing: .2em; text-transform: uppercase; }
