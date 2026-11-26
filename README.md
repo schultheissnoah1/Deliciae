@@ -27,3 +27,12 @@ Pull requests targeting `main` build the site and check internal links and asset
 ## Project status
 
 The scaffold includes Home, Services, and Our Work. The Figma export, approved service descriptions and imagery, contact details, and the language decision are pending. See [issue #10](https://github.com/schultheissnoah1/Deliciae/issues/10).
+
+## Pull request previews
+
+After the Pages workflow completes, open
+`https://schultheissnoah1.github.io/Deliciae/previews/pr-<number>/` for a pull
+request targeting `main` from a branch in this repository. These previews are
+public. The workflow refreshes them when an eligible pull request opens,
+changes, reopens, or closes. Closing a pull request removes its preview from the
+next successful deployment. Fork pull requests still run build checks.
